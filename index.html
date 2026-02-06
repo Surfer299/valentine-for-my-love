@@ -429,19 +429,24 @@
 
     /* ── NO Button — dodge! ─────────────────────── */
     var btnNo = document.getElementById('btnNo');
-    btnNo.addEventListener('click', function () {
-      var card = document.getElementById('mainCard');
-      var cardRect = card.getBoundingClientRect();
 
-      // Calculate bounds within the card
-      var maxX = cardRect.width - btnNo.offsetWidth - 20;
-      var maxY = cardRect.height - btnNo.offsetHeight - 20;
+    function dodgeNo() {
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      var bw = btnNo.offsetWidth;
+      var bh = btnNo.offsetHeight;
 
-      btnNo.style.position = 'absolute';
-      btnNo.style.left = Math.max(10, Math.random() * maxX) + 'px';
-      btnNo.style.top = Math.max(10, Math.random() * maxY) + 'px';
+      // Move the button to a random spot on the viewport
+      btnNo.style.position = 'fixed';
+      btnNo.style.zIndex = '99';
+      btnNo.style.left = Math.max(10, Math.random() * (vw - bw - 20)) + 'px';
+      btnNo.style.top = Math.max(10, Math.random() * (vh - bh - 20)) + 'px';
       btnNo.style.transition = 'left 0.3s ease, top 0.3s ease';
-    });
+    }
+
+    btnNo.addEventListener('click', dodgeNo);
+    btnNo.addEventListener('mouseover', dodgeNo);
+    btnNo.addEventListener('touchstart', dodgeNo, { passive: true });
 
     /* ── YES Button — celebrate! ────────────────── */
     var btnYes = document.getElementById('btnYes');
